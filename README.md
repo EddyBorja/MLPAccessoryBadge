@@ -66,3 +66,11 @@ _MLPAccessoryBadge_ was written by Eddy Borja, at Mainloop LLC.
 If you make use of _MLPAccessoryBadge_, tell us about it! 
 Reach us at hello@mainloop.us
 
+
+More Stuff
+---------
+Be sure to check out these other libraries:
+
+[MLPSpotlight](https://github.com/EddyBorja/MLPSpotlight)<br />
+[MLPAutoCompleteTextField](https://github.com/EddyBorja/MLPAutoCompleteTextField)<br />
+[UIColor+MLPFlatColors](https://github.com/EddyBorja/UIColor-MLPFlatColors)<br />
