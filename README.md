@@ -17,7 +17,9 @@ _MLPAccessoryBadge_ requires no graphic files to work, all drawing is done nativ
 Usage
 ---------
 
-Assuming `cell` is a _UITableViewCell_ for your _UITableView_, the following code creates a simple gray badge as the accessory view of your cell:
+1. Add the MLPAccessoryBadge.h and MLPAccessoryBadge.m files to your project.
+
+2. Now it's time to create your badge. Assuming `cell` is a _UITableViewCell_ for your _UITableView_, the following code creates a simple gray badge as the accessory view of your cell:
 `
 MLPAccessoryBadge *accessoryBadge = [MLPAccessoryBadge new];
 [accessoryBadge setText:@"Hello World"];
