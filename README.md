@@ -11,7 +11,7 @@ _MLPAccessoryBadge_ is a delightfully customizable UIView subclass that renders 
 
 An _MLPAccessoryBadge_ is not restricted solely for use in a _UITableViewCell_, it was just designed with that use case in mind. Feel free to find other creative uses for the accessory badge!
 
-_MLPAccessoryBadge_ requires no graphic files to work, all drawing is done natively. This means you can customize colors, shading and shapes with ease!
+_MLPAccessoryBadge_ requires no graphic files to work, all drawing happens natively. This means you can customize colors, shading and shapes with ease!
 
 
 Usage
