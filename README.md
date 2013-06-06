@@ -35,7 +35,7 @@ Cocoapods
 CocoaPods are the best way to manage library dependencies in Objective-C projects.
 Learn more at http://cocoapods.org
 
-A Cocoapod for MLPAccessoryBadge is coming soon.
+Add this to your podfile to add the MLPAccessoryBadge to your project. pod `'MLPAccessoryBadge', '~> 0.9'`
 
 
 What to Expect in Future Updates
