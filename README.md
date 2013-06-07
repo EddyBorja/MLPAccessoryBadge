@@ -19,7 +19,9 @@ Usage
 
 1. Add the _MLPAccessoryBadge.h_ and _MLPAccessoryBadge.m_ files to your project.
 
-2. Now it's time to create your badge. Assuming `cell` is a _UITableViewCell_ for your _UITableView_, the following code creates a simple gray badge as the accessory view of your cell:
+2. Make sure you have Apple's QuartzCore framework added to your project, _MLPAccessoryBadge_ needs it for drawing routines.
+
+3. Now it's time to create your badge. Assuming `cell` is a _UITableViewCell_ for your _UITableView_, the following code creates a simple gray badge as the accessory view of your cell:
 
 `MLPAccessoryBadge *accessoryBadge = [MLPAccessoryBadge new];`
 
