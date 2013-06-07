@@ -111,9 +111,11 @@
             break;
         case 4:
             accessoryBadge = [MLPAccessoryBadge new];
-            [accessoryBadge setCornerRadius:10];
+            [accessoryBadge setCornerRadius:6];
             [accessoryBadge setText:@"Specify Corner Radius!"];
             [accessoryBadge setBackgroundColor:[UIColor flatTealColor]];
+            [accessoryBadge setStrokeColor:[UIColor flatDarkWhiteColor]];
+            [accessoryBadge setStrokeWidth:3];
             break;
         case 5:
             accessoryBadge = [MLPAccessoryBadgeArrow new];
@@ -140,6 +142,8 @@
         case 8:
             accessoryBadge = [MLPAccessoryBadge new];
             [accessoryBadge setText:@"Control Shading"];
+            [accessoryBadge.textLabel setShadowOffset:CGSizeZero];
+            [accessoryBadge setCornerRadius:0];
             [accessoryBadge setHighlightAlpha:0];
             [accessoryBadge setShadowAlpha:0];
             [accessoryBadge setBackgroundColor:[UIColor flatGrayColor]];
@@ -155,7 +159,8 @@
             break;
         case 10:
             accessoryBadge = [MLPAccessoryBadgeChevron new];
-            [accessoryBadge setTextWithNumber:@4];
+            [accessoryBadge setText:@"Hidden Badge"];
+            [accessoryBadge setBadgeHidden:YES];
             [accessoryBadge setBackgroundColor:[UIColor flatDarkPurpleColor]];
             break;
         case 11:
@@ -182,7 +187,7 @@
             break;
         case 14:
             accessoryBadge = [MLPAccessoryBadgeChevron new];
-            [accessoryBadge setText:@"New"];
+            [accessoryBadge setTextWithNumber:@4];
             [accessoryBadge setBackgroundColor:[UIColor flatDarkYellowColor]];
             break;
         case 15:

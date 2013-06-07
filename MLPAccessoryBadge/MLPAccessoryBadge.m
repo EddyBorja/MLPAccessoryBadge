@@ -56,6 +56,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     [self setCornerRadius:4];
     [self setHighlightAlpha:0.45];
     [self setShadowAlpha:0.1];
+    [self setShadowOffset:CGSizeMake(0, 1)];
+    [self setStrokeWidth:2];
     [self setBackgroundColor:[UIColor grayColor]];
     [self setTextSizePadding:CGSizeMake(16, 0)];
     [self setBadgeMinimumSize:CGSizeMake(30, 22)];
@@ -137,6 +139,44 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     [self setNeedsDisplay];
 }
 
+- (void)setShadowOffset:(CGSize)shadowOffset
+{
+    _shadowOffset = shadowOffset;
+    [self setNeedsDisplay];
+}
+
+- (void)setStrokeColor:(UIColor *)strokeColor
+{
+    _strokeColor = strokeColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setStrokeWidth:(CGFloat)strokeWidth
+{
+    _strokeWidth = strokeWidth;
+    [self setNeedsDisplay];
+}
+
+
+- (void)setChevronColor:(UIColor *)chevronColor
+{
+    _chevronColor = chevronColor;
+    [self setNeedsDisplay];
+}
+
+- (void)setBadgeHidden:(BOOL)badgeHidden
+{
+    _badgeHidden = badgeHidden;
+    [self setNeedsDisplay];
+    [self setShadow];
+}
+
+- (void)setChevronStrokeWidth:(CGFloat)chevronStrokeWidth
+{
+    _chevronStrokeWidth = chevronStrokeWidth;
+    [self setNeedsDisplay];
+}
+
 - (void)setTextWithNumber:(NSNumber *)number
 {
     [self setTextWithIntegerValue:[number integerValue]];
@@ -171,7 +211,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (void)setShadow
 {
-    [self.layer setShadowOffset:CGSizeMake(0, 1)];
+    [self.layer setShadowOffset:self.shadowOffset];
     [self.layer setShadowOpacity:self.shadowAlpha];
     [self.layer setShadowColor:[[UIColor blackColor] CGColor]];
     [self.layer setShadowRadius:0];
@@ -185,8 +225,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     [self resizeFrame];
 }
 
+
+
 - (UIBezierPath *)accessoryPathInRect:(CGRect)rect
 {
+    if(self.isBadgeHidden){
+        return nil;
+    }
+    
     UIBezierPath *roundedRectPath = [UIBezierPath bezierPathWithRoundedRect:rect
                                                                cornerRadius:self.cornerRadius];
     return roundedRectPath;
@@ -259,6 +305,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (void)drawRect:(CGRect)rect
 {
+    if(self.isBadgeHidden){
+        return;
+    }
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     UIBezierPath *bezierPath = [self accessoryPathInRect:self.bounds];
@@ -269,32 +319,41 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     CGContextSetFillColorWithColor(context, [self.backgroundColor CGColor]);
     CGContextFillPath(context);
     
-    //Prepare a new clipping path
+    //New Clipping Path
     CGContextAddPath(context, path);
     CGContextClip(context);
-    
-    //Prepare an outer path that will create a white bevel effect
+        
+    //Create a surface gradient
     CGMutablePathRef outerRectPath = CGPathCreateMutable();
     CGPathAddRect(outerRectPath, NULL, CGRectInset(rect, -30, -30));
     CGPathAddPath(outerRectPath, NULL, path);
     CGPathCloseSubpath(outerRectPath);
     
     CGContextSetBlendMode(context, kCGBlendModeMultiply);
-    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGFloat locations[] = { 0.0, 1.0 };
-    CGFloat components[8] =	{ 0.0, 0.0, 0.0, 0.0,    0.0, 0.0, 0.0, self.gradientAlpha };
+    CGFloat components[8] =	{ 0.0, 0.0, 0.0, 0.0,
+                              0.0, 0.0, 0.0, self.gradientAlpha };
     CGGradientRef gradientRef = CGGradientCreateWithColorComponents(colorSpace, components, locations, 2);
     
     CGPoint startPoint = CGPointMake(CGRectGetMaxX(rect)*0.5, CGRectGetMinY(rect));
     CGPoint endPoint = CGPointMake(CGRectGetMaxX(rect)*0.5, CGRectGetMaxY(rect));
     CGContextDrawLinearGradient(context, gradientRef, startPoint, endPoint, kCGGradientDrawsBeforeStartLocation);
     
+    //Stroke the path
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    if(self.strokeColor){
+        CGContextAddPath(context, path);
+        CGContextSetStrokeColorWithColor(context, [self.strokeColor CGColor]);
+        CGContextSetLineWidth(context, self.strokeWidth);
+        CGContextStrokePath(context);
+    }
     
-    //Draw the white bevel
+    //Draw the higlight bevel
     CGContextSetBlendMode(context, kCGBlendModeSoftLight);
-    UIColor *whiteBevelColor = [UIColor colorWithWhite:1.0 alpha:self.highlightAlpha];
-    CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 0.0, [whiteBevelColor CGColor]);
+    UIColor *highlightColor = self.highlightColor ? self.highlightColor :
+                                [UIColor colorWithWhite:1.0 alpha:self.highlightAlpha];
+    CGContextSetShadowWithColor(context, self.shadowOffset, 0.0, [highlightColor CGColor]);
     CGContextAddPath(context, outerRectPath);
     CGContextEOFillPath(context);
     
@@ -369,6 +428,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     [self setTextSizePadding:CGSizeMake(12, 0)];
     [self setBadgeInnerPadding:CGSizeMake(18, 0)];
     [self setBadgeMinimumSize:CGSizeMake(22, 22)];
+    [self setChevronStrokeWidth:4];
 }
 
 - (void)setShadow
@@ -381,6 +441,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (UIBezierPath *)accessoryPathInRect:(CGRect)rect
 {
+    if(self.isBadgeHidden){
+        return nil;
+    }
+    
     rect.size.width -= 17;
     
     UIBezierPath *roundedRectPath = [UIBezierPath bezierPathWithRoundedRect:rect
@@ -399,9 +463,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     CGContextAddLineToPoint(context, CGRectGetMaxX(rect) - 9, CGRectGetMaxY(rect)-6);
     
     CGContextSaveGState(context);
-    CGContextSetStrokeColorWithColor(context, [self.backgroundColor CGColor]);
-    CGContextSetShadowWithColor(context, CGSizeMake(0, 1), 0.0, [[UIColor colorWithWhite:0 alpha:self.shadowAlpha] CGColor]);
-    CGContextSetLineWidth(context, 4);
+    UIColor *chevronColor = self.chevronColor ? self.chevronColor : self.backgroundColor;
+    CGContextSetStrokeColorWithColor(context, [chevronColor CGColor]);
+    CGContextSetShadowWithColor(context, self.shadowOffset, 0.0, [[UIColor colorWithWhite:0 alpha:self.shadowAlpha] CGColor]);
+    CGContextSetLineWidth(context, self.chevronStrokeWidth);
     CGContextSetLineJoin(context, kCGLineJoinMiter);
     CGContextSetLineCap(context, kCGLineCapSquare);
     
@@ -409,7 +474,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     CGContextRestoreGState(context);
     
     [super drawRect:rect];
-    
 }
 @end
 
@@ -439,6 +503,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (UIBezierPath *)accessoryPathInRect:(CGRect)rect
 {
+    if(self.isBadgeHidden){
+        return nil;
+    }
+    
     CGRect badgeRect = CGRectInset(rect, 2, 2);
     UIBezierPath *roundedRectPath = [UIBezierPath bezierPathWithRoundedRect:badgeRect
                                                                cornerRadius:self.cornerRadius];
@@ -448,6 +516,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (void)drawRect:(CGRect)rect
 {
+    if(self.isBadgeHidden){
+        return;
+    }
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     UIBezierPath *roundedRectPath = [UIBezierPath bezierPathWithRoundedRect:rect
                                                                cornerRadius:self.cornerRadius+1];

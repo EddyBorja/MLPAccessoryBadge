@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/EddyBorja/MLPAccessoryBadge"
 
 
-  s.license      = { :type => 'MIT (example)', :file => 'LICENSE.md' }
+  s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { "Eddy Borja" => "eddyborja@gmail.com" }
  
   s.source       = { :git => "https://github.com/EddyBorja/MLPAccessoryBadge.git", :tag => "0.9" }
