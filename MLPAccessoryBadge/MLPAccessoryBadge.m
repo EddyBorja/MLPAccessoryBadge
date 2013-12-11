@@ -275,7 +275,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     const CGFloat blueWeight = 0.0722;
     
     CGFloat rgbValues[4];
-    [color getRed:&rgbValues[0] green:&rgbValues[1] blue:&rgbValues[2] alpha:&rgbValues[4]];
+    [color getRed:&rgbValues[0] green:&rgbValues[1] blue:&rgbValues[2] alpha:&rgbValues[3]];
     
     
     CGFloat luminance = (rgbValues[0] * redWeight) +
