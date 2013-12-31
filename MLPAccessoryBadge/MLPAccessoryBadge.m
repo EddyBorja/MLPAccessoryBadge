@@ -242,6 +242,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (void)resizeFrame
 {
+    if (self.textLabel == nil) return;
+    
     CGSize size = [self.textLabel.text sizeWithAttributes:@{NSFontAttributeName:self.textLabel.font}];
     size.width += self.textSizePadding.width;
     size.height += self.textSizePadding.height;
