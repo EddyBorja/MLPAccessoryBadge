@@ -291,7 +291,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 
     CGFloat rgbValues[4];
-    [color getRed:&rgbValues[0] green:&rgbValues[1] blue:&rgbValues[2] alpha:&rgbValues[4]];
+    [color getRed:&rgbValues[0] green:&rgbValues[1] blue:&rgbValues[2] alpha:&rgbValues[3]];
     
     CGFloat luminance = (rgbValues[0] * redWeight) +
     (rgbValues[1] * greenWeight) +
