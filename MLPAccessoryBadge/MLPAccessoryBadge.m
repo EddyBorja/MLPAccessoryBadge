@@ -278,16 +278,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #pragma mark - Helpers
 
-- (CGFloat)luminanceValueForColor:(UIColor *)color
-{
-    //Y = 0.2126 R + 0.7152 G + 0.0722 B (Luminance Formula for SRGB)
+- (CGFloat)luminanceValueForColor:(UIColor *)color {
+	
+	//Y = 0.2126 R + 0.7152 G + 0.0722 B (Luminance Formula for SRGB)
     const CGFloat redWeight = 0.2126;
     const CGFloat greenWeight = 0.7152;
     const CGFloat blueWeight = 0.0722;
     
+    //check if color is monochrome
+	if (kCGColorSpaceModelMonochrome == CGColorSpaceGetModel(CGColorGetColorSpace(color.CGColor))) {
+		return redWeight + greenWeight + blueWeight;
+	}
+
     CGFloat rgbValues[4];
-    [color getRed:&rgbValues[0] green:&rgbValues[1] blue:&rgbValues[2] alpha:&rgbValues[3]];
-    
+    [color getRed:&rgbValues[0] green:&rgbValues[1] blue:&rgbValues[2] alpha:&rgbValues[4]];
     
     CGFloat luminance = (rgbValues[0] * redWeight) +
     (rgbValues[1] * greenWeight) +
