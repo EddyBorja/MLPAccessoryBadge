@@ -78,4 +78,3 @@ Be sure to check out these other libraries:
 [UIColor+MLPFlatColors](https://github.com/EddyBorja/UIColor-MLPFlatColors)<br />
 [EBPhotoPages Gallery](https://github.com/EddyBorja/EBPhotoPages)<br />
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ca16269bd8cf274377a6846c4221fdb7 "githalytics.com")](http://githalytics.com/EddyBorja/MLPAccessoryBadge)
