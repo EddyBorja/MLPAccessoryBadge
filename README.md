@@ -32,6 +32,9 @@ Usage
 Check the header file of _MLPAccessoryBadge_ to find more customization options.
 
 
+<!---
+Remove comment when carthage support is in.
+
 Carthage
 -------
 Carthage is the simplest way to include frameworks in your Cocoa applications.
@@ -43,6 +46,7 @@ To use the latest version of this library, add this to your Cartfile.
 # Use the latest version
 github "EddyBorja/MLPAccessoryBadge"
 ```
+-->
 
 
 
@@ -74,6 +78,8 @@ _MLPAccessoryBadge_ was written by Eddy Borja, at Mainloop LLC.
 If you make use of _MLPAccessoryBadge_, tell us about it! 
 Reach us at hello@mainloop.us
 :D
+
+These days I'm unable to continue working on this project due to other obligations, but I'm always open to pull requests. 
 
 More Stuff
 ---------
