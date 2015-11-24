@@ -32,12 +32,18 @@ Usage
 Check the header file of _MLPAccessoryBadge_ to find more customization options.
 
 
-Cocoapods
+Carthage
 -------
-CocoaPods are the best way to manage library dependencies in Objective-C projects.
-Learn more at http://cocoapods.org
+Carthage is the simplest way to include frameworks in your Cocoa applications.
 
-Add this to your podfile to add the MLPAccessoryBadge to your project:<br /> `pod 'MLPAccessoryBadge', '~> 0.9'`
+Learn more at https://github.com/Carthage/Carthage
+
+To use the latest version of this library, add this to your Cartfile.
+```
+# Use the latest version
+github "EddyBorja/MLPAccessoryBadge"
+```
+
 
 
 What to Expect in Future Updates
