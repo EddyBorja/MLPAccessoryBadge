@@ -251,7 +251,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         size.width = ceilf(size.width);
         size.height = ceilf(size.height);
     } else {
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         size = [self.textLabel.text sizeWithFont:self.textLabel.font];
+#pragma GCC diagnostic warning "-Wdeprecated-declarations"
     }
     
     size.width += self.textSizePadding.width;
