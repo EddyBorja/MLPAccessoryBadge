@@ -184,7 +184,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - (void)setTextWithIntegerValue:(NSInteger)value
 {
-    [self setText:[NSString stringWithFormat:@"%i", value]];
+    [self setText:[NSString stringWithFormat:@"%li", (long)value]];
 }
 
 - (void)setText:(NSString *)string
